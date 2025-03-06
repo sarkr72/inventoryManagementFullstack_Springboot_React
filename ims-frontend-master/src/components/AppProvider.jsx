@@ -22,16 +22,16 @@ const AppProvider = ({ children }) => {
     };
 
     const signIn = async (credentials) => {
-        await fetchRoles();
+        // await fetchRoles();
     };
 
-     useEffect(() => {
-        if (isUserLoggedIn) {
-            fetchRoles();
-        } else {
-            setLoading(false); 
-        }
-    }, []);
+    //  useEffect(() => {
+    //     if (isUserLoggedIn) {
+    //         fetchRoles();
+    //     } else {
+    //         setLoading(false); 
+    //     }
+    // }, []);
 
     return (
         <AppContext.Provider value={{ role, loading, signIn }}>

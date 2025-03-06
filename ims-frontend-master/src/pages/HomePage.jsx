@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
+import React, {useState } from "react";
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from 'react-router-dom';
 import '../css/homepage.css'
 import { AppContext } from '../components/AppProvider';
 import { Row, Col } from 'react-bootstrap';
 
 function NavScrollExample() {
-  const [showFilters, setShowFilters] = useState(false);
-  const [input, setInput] = useState("");
   const navigate = useNavigate();
-  const { role } = React.useContext(AppContext);
+  // const { role } = React.useContext(AppContext);
+  const role = sessionStorage.getItem("role");
 
-  const onChange = (e) => {
-    setShowFilters(true);
-    setInput(e.target.value);
-  }
-
-  
   return (
     <div style={{paddingBottom: "45px", minHeight: '100vh', background: 'linear-gradient(to bottom, #f5f5f5, #e0e0e0)' }}>
       <Container fluid >

@@ -18,7 +18,7 @@ const ViewWarehouse = () => {
     const [locations, setLocations] = useState([]);
     const [warehouse, setWarehouse] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
-    const role = localStorage.getItem('role');
+    const role = sessionStorage.getItem('role');
 
     useEffect(() => {
         getLocations();

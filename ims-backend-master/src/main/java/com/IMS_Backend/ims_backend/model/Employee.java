@@ -5,10 +5,11 @@ package com.IMS_Backend.ims_backend.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -44,14 +45,11 @@ public class Employee {
 	@Column(name = "phone")
 	private String phone;
 	
-//	@Column(name = "role")
-//	private String role;
-	
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "g3users_roles",
-        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable=false),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable=false)
     )
     private Set<Role> roles = new HashSet<>();
 	
@@ -60,10 +58,6 @@ public class Employee {
 	@JsonIgnoreProperties({"employees", "employees", "warehouses", "suppliers", "companyId"})
 	private Company company;
     
-//	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JsonManagedReference 
-//	private List<PurchaseOrder> pos= new ArrayList<>();
-//	
 	public Employee() {
 		
 	}
@@ -96,12 +90,7 @@ public void setRoles(Set<Role> roles) {
 
 
 
-	//	public List<PurchaseOrder> getPos() {
-//		return pos;
-//	}
-//	public void setPos(List<PurchaseOrder> pos) {
-//		this.pos = pos;
-//	}
+
 	public Long getId() {
 		return id;
 	}

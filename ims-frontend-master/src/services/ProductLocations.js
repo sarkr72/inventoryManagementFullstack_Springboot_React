@@ -1,33 +1,23 @@
-import axios from "axios";
-import { getToken } from "./AuthService";
+import API from "./Api";
 
-axios.interceptors.request.use(function (config) {
+const REST_API_BASE_URL = "/productLocations";
 
-    config.headers['Authorization'] = getToken();
+export const listProductLocations = () => API.get(REST_API_BASE_URL);
 
-    return config;
-}, function (error){
-    return Promise.reject(error);
-});
+export const listProductLocationsByLocation = (row, col, wh, company) => API.get(REST_API_BASE_URL +"/plByLocation", {params: {row, col, wh, company}});
 
-const REST_API_BASE_URL = "http://localhost:8080/api/productLocations";
+export const listProductLocationsByProduct = (product, company) => API.get(REST_API_BASE_URL +"/plByProduct",  {params: {product, company}});
 
-export const listProductLocations = () => axios.get(REST_API_BASE_URL);
-
-export const listProductLocationsByLocation = (row, col, wh, company) => axios.get(REST_API_BASE_URL +"/plByLocation", {params: {row, col, wh, company}});
-
-export const listProductLocationsByProduct = (product, company) => axios.get(REST_API_BASE_URL +"/plByProduct",  {params: {product, company}});
-
-export const listProductLocationsByCompany = (company) => axios.get(REST_API_BASE_URL + "/company/" + company);
+export const listProductLocationsByCompany = (company) => API.get(REST_API_BASE_URL + "/company/" + company);
 
 export const createProductLocation = (pl) =>
-  axios.post(REST_API_BASE_URL, pl);
+  API.post(REST_API_BASE_URL, pl);
 
 export const getProductLocation = (id) =>
-  axios.get(REST_API_BASE_URL + "/" + id);
+  API.get(REST_API_BASE_URL + "/" + id);
 
 export const updateProductLocation = (id, pl) =>
-  axios.put(REST_API_BASE_URL + "/" + id, pl);
+  API.put(REST_API_BASE_URL + "/" + id, pl);
 
 export const deleteProductLocation = (id) =>
-  axios.delete(REST_API_BASE_URL + "/" + id);
+  API.delete(REST_API_BASE_URL + "/" + id);

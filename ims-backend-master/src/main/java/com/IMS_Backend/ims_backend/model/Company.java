@@ -40,7 +40,7 @@ public class Company {
 	private String contact;
 
 
-	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "company")
 	@JsonIgnoreProperties("company")
 	private List<Employee> employees= new ArrayList<>();
 	
@@ -52,7 +52,7 @@ public class Company {
 	@JsonIgnoreProperties("company")
 	private List<Product> products= new ArrayList<>();
 	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@ManyToMany( fetch = FetchType.LAZY)
 	@JoinTable(name = "g3supplier_company", joinColumns = @JoinColumn(name = "company_id"), inverseJoinColumns = @JoinColumn(name = "supplier_id"))
 	@JsonIgnoreProperties("companies")
 	private List<Supplier> suppliers = new ArrayList<>();

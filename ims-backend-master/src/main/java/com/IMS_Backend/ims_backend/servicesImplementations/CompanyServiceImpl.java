@@ -35,15 +35,6 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Override
 	public Company createCompany(Company company) {
-//		if (company.getSuppliers() != null) {
-//			Set<Long> ids = company.getSuppliers().stream().map(Supplier::getId).collect(Collectors.toSet());
-//			List<Supplier> suppliers = supplierRepository.findAllById(ids).stream().collect(Collectors.toSet());
-//			
-//			company.setSuppliers(suppliers);
-//		}
-
-
-		
 		Company savedCompany = companyRepository.save(company);
 		return savedCompany;
 	}
@@ -69,35 +60,27 @@ public class CompanyServiceImpl implements CompanyService {
 		savedCompany.setName(company.getName());
 		savedCompany.setAddress(company.getAddress());
 		savedCompany.setContact(company.getContact());
-		if (company.getSuppliers() != null) {
-//			savedCompany.getSuppliers().addAll(company.getSuppliers());
-			List<Supplier> suppliers = company.getSuppliers();
-			for(Supplier supplierInput : suppliers) {
-				if(supplierInput.getId() != null) {
-					Supplier existingSup = supplierRepository.findById(supplierInput.getId()).orElseThrow(() -> new NotFoundException("Company is not found with id: " + companyId));
-					savedCompany.addSupplier(existingSup);
-				}
-			}
-		}
-		
-		if (company.getEmployees() != null) {
-			Set<Long> ids = company.getEmployees().stream().map(Employee::getId).collect(Collectors.toSet());
-			Set<Employee> employees = empRepo.findAllById(ids).stream().collect(Collectors.toSet());
-			for(Employee e: employees) {
-				savedCompany.addEmployee(e);
-			}
-		}
-		
-		
-		if (company.getWarehouses() != null) {
-			List<Warehouse> wars = company.getWarehouses();
-			for(Warehouse w : wars) {
-				if(w.getId() != null) {
-					Warehouse existingSup = wRepo.findById(w.getId()).orElseThrow(() -> new NotFoundException("Company is not found with id: " + companyId));
-					savedCompany.addWarehouse(existingSup);
-				}
-			}
-		}
+		Supplier s =  new Supplier("s4", "add4", "contact4");
+		supplierRepository.save(s);
+		savedCompany.getSuppliers().add(s);
+//		if (savedCompany.getEmployees().size() > 0) {
+//			Set<Long> ids = savedCompany.getEmployees().stream().map(Employee::getId).collect(Collectors.toSet());
+//			Set<Employee> employees = empRepo.findAllById(ids).stream().collect(Collectors.toSet());
+//			for(Employee e: employees) {
+//				savedCompany.addEmployee(e);
+//				System.out.println(e.toString());
+//			}
+//		}
+//		
+//		if (savedCompany.getWarehouses().size() > 0) {
+//			List<Warehouse> wars = savedCompany.getWarehouses();
+//			for(Warehouse w : wars) {
+//				if(w.getId() != null) {
+//					Warehouse existingSup = wRepo.findById(w.getId()).orElseThrow(() -> new NotFoundException("Company is not found with id: " + companyId));
+//					savedCompany.addWarehouse(existingSup);
+//				}
+//			}
+//		}
 
 		Company updatedCompany = companyRepository.save(savedCompany);
 

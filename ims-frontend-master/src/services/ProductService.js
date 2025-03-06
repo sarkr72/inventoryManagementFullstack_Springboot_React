@@ -1,28 +1,18 @@
-import axios from "axios";
-import { getToken } from "./AuthService";
+import API from "./Api";
 
-axios.interceptors.request.use(function (config) {
+const REST_API_BASE_URL = `/products`;
 
-    config.headers['Authorization'] = getToken();
+export const productsList = () => API.get(REST_API_BASE_URL);
 
-    return config;
-}, function (error){
-    return Promise.reject(error);
-});
+export const productsListByCompany = (id) => API.get(REST_API_BASE_URL + "/company/" + id);
 
-const REST_API_BASE_URL = `http://localhost:8080/api/products`;
+export const createProduct = (product) => API.post(REST_API_BASE_URL, product);
 
-export const productsList = () => axios.get(REST_API_BASE_URL);
+export const getProduct = (productID) => API.get(REST_API_BASE_URL + '/' + productID);
 
-export const productsListByCompany = (id) => axios.get(REST_API_BASE_URL + "/company/" + id);
+export const updateProduct = (productID, product) => API.put(REST_API_BASE_URL + '/' + productID, product);
 
-export const createProduct = (product) => axios.post(REST_API_BASE_URL, product);
+export const updateProductByName = (name, product) => API.put(REST_API_BASE_URL + '/name/' + name, product);
 
-export const getProduct = (productID) => axios.get(REST_API_BASE_URL + '/' + productID);
-
-export const updateProduct = (productID, product) => axios.put(REST_API_BASE_URL + '/' + productID, product);
-
-export const updateProductByName = (name, product) => axios.put(REST_API_BASE_URL + '/name/' + name, product);
-
-export const deleteProduct = (productID) => axios.delete(REST_API_BASE_URL + '/' + productID);
+export const deleteProduct = (productID) => API.delete(REST_API_BASE_URL + '/' + productID);
 

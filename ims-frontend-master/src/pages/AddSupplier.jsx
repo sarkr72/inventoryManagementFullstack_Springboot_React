@@ -51,10 +51,15 @@ const AddSupplier = () => {
       updateSupplierById(data.id, data).then((response) => {
         navigate("/manageSuppliers");
       });
+      
     } else {
       createSupplier(data).then((response) => {
         navigate("/manageSuppliers");
       });
+      // updateCompanyWithId(localStorage.getItem("companyId"), JSON.parse(localStorage.getItem("company"))).then((response)=>{
+      //   navigate("/manageSuppliers");
+      //   console.log("hello");
+      // });
     }
   };
 

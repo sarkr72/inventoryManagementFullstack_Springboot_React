@@ -1,27 +1,17 @@
-import axios from "axios";
-import { getToken } from "./AuthService";
+import API from "./Api";
 
-const REST_API_BASE_URL = 'http://localhost:8080/api/companies';
+const REST_API_BASE_URL = '/companies';
 
-axios.interceptors.request.use(function (config) {
+export const listCompanies = () => API.get(REST_API_BASE_URL);
 
-    config.headers['Authorization'] = getToken();
+export const listSuppliersById = (id) => API.get(REST_API_BASE_URL + "/companySuppliers/" + id);
 
-    return config;
-}, function (error){
-    return Promise.reject(error);
-});
+export const createCompany = (company) => API.post(REST_API_BASE_URL, company);
 
-export const listCompanies = () => axios.get(REST_API_BASE_URL);
+export const getCompany = (CompanyId) => API.get(REST_API_BASE_URL + '/' + CompanyId);
 
-export const listSuppliersById = (id) => axios.get(REST_API_BASE_URL + "/companySuppliers/" + id);
+export const updateCompanyWithId = (CompanyId, company) => API.put(REST_API_BASE_URL + '/' + CompanyId, company);
 
-export const createCompany = (company) => axios.post(REST_API_BASE_URL, company);
-
-export const getCompany = (CompanyId) => axios.get(REST_API_BASE_URL + '/' + CompanyId);
-
-export const updateCompanyWithId = (CompanyId, company) => axios.put(REST_API_BASE_URL + '/' + CompanyId, company);
-
-export const deleteCompany =(CompanyId) => axios.delete(REST_API_BASE_URL + '/' + CompanyId);
+export const deleteCompany =(CompanyId) => API.delete(REST_API_BASE_URL + '/' + CompanyId);
 
 

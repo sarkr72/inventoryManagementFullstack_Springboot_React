@@ -1,25 +1,15 @@
-import axios from "axios";
-import { getToken } from "./AuthService";
+import API from "./Api";
 
-axios.interceptors.request.use(function (config) {
+const REST_API_BASE_URL = "/purchaseOrder";
 
-    config.headers['Authorization'] = getToken();
+export const purchaseOrderList = () => API.get(REST_API_BASE_URL);
 
-    return config;
-}, function (error){
-    return Promise.reject(error);
-});
+export const purchaseOrderListByCompany = (name) => API.get(REST_API_BASE_URL + "/posByCompany/" + name);
 
-const REST_API_BASE_URL = "http://localhost:8080/api/purchaseOrder";
+export const createPurchaseOrder = (purchaseOrder) => API.post(REST_API_BASE_URL, purchaseOrder);
 
-export const purchaseOrderList = () => axios.get(REST_API_BASE_URL);
+export const getPurchaseOrder = (purchaseOrderID) => API.get(REST_API_BASE_URL + "/" + purchaseOrderID);
 
-export const purchaseOrderListByCompany = (name) => axios.get(REST_API_BASE_URL + "/posByCompany/" + name);
+export const updatePurchaseOrder = (purchaseOrderID, purchaseOrder) => API.put(REST_API_BASE_URL + '/' + purchaseOrderID, purchaseOrder);
 
-export const createPurchaseOrder = (purchaseOrder) => axios.post(REST_API_BASE_URL, purchaseOrder);
-
-export const getPurchaseOrder = (purchaseOrderID) => axios.get(REST_API_BASE_URL + "/" + purchaseOrderID);
-
-export const updatePurchaseOrder = (purchaseOrderID, purchaseOrder) => axios.put(REST_API_BASE_URL + '/' + purchaseOrderID, purchaseOrder);
-
-export const deletePurchaseOrder = (purchaseOrderID) => axios.delete(REST_API_BASE_URL + "/" + purchaseOrderID);
+export const deletePurchaseOrder = (purchaseOrderID) => API.delete(REST_API_BASE_URL + "/" + purchaseOrderID);

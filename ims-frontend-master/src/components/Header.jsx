@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Navbar,
   Nav,
   Container,
-  Row,
   NavDropdown,
-  NavbarBrand,
 } from "react-bootstrap";
-import { Image } from "react-bootstrap/esm";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom/dist";
-import { getRoles } from "../services/EmployeeService";
 import { isUserLoggedIn, logout } from "../services/AuthService";
 import { AppContext } from "./AppProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,12 +16,13 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'; // Import the icon y
 const Header = () => {
   const navigate = useNavigate();
   const isAuth = isUserLoggedIn();
-  const { role } = React.useContext(AppContext);
-  const name = JSON.parse(localStorage.getItem("user"))?.data?.firstName?.toUpperCase();
-  console.log(name)
+  // const { role } = React.useContext(AppContext);
+  const role = sessionStorage.getItem("role");
+  const name = JSON.parse(localStorage.getItem("user"))?.data[0]?.firstName?.toUpperCase();
+ 
   const logoutHandler = () => {
     logout();
-    navigate("/login");
+    // navigate("/login");
   };
 
   return (

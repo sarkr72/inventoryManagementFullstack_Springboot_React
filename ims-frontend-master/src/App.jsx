@@ -21,19 +21,17 @@ import PurchaseOrderList from "./pages/PurchaseOrderList";
 import CreatePurchaseOrder from "./pages/CreatePurchaseOrder";
 import Products from "./pages/Products";
 import { isUserLoggedIn } from "./services/AuthService";
-import { getRoles } from "./services/EmployeeService";
-import { useEffect, useState } from "react";
 import WelcomePage from "./pages/WelcomePage";
 import Statistics from "./pages/Statistics";
+import InactivityTracker from "./services/InactivityHandle";
 
 
 function App() {
   const AuthenticatedRoute = ({ children, allowedRoles }) => {
     const isAuth = isUserLoggedIn();
-    const roles = localStorage.getItem("role");
+    const roles = sessionStorage.getItem("role");
     console.log(roles);
     const hasRequiredRole = allowedRoles ? allowedRoles.includes(roles) : true;
-    console.log(hasRequiredRole);
     if (isAuth && hasRequiredRole) {
       return children;
     }
@@ -43,6 +41,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <InactivityTracker />
         <Header style={{ margin: 0, padding: 0 }} />
         <Routes>
           <Route path="/" element={<WelcomePage />}></Route>

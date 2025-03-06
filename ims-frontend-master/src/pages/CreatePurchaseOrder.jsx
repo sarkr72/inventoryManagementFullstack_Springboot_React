@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  productsList,
   productsListByCompany,
 } from "../services/ProductService.js";
 import { useState, useEffect } from "react";
@@ -8,17 +7,13 @@ import {
   createPurchaseOrder,
   updatePurchaseOrder,
 } from "../services/PurchaseOrderService.js";
-import { getEmployee } from "../services/EmployeeService.js";
-import { listSupplier } from "../services/SupplierService.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import Quantity from "../components/Quantity";
 import { listSuppliersById } from "../services/CompanyService.js";
-import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 import { createGraph, listGraphsByCompany, updateGraph } from "../services/GraphService.js";
 
 const CreatePurchaseOrder = (props) => {
@@ -33,7 +28,6 @@ const CreatePurchaseOrder = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [suppliers, setSuppliers] = useState([]);
-  const [updateData, setUpdateData] = useState(props?.updateOrder);
   const [graph, setGraph] = useState(null);
   const [data, setData] = useState({
     id: 0,

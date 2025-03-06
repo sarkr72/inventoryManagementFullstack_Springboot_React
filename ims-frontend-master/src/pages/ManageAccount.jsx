@@ -1,12 +1,9 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import Image from 'react-bootstrap/Image';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
-import Placeholder from 'react-bootstrap/Placeholder';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useState } from "react";
@@ -18,7 +15,6 @@ import { updateEmployee } from "../services/EmployeeService";
 import { getCompany } from "../services/CompanyService";
 import { AppContext } from "../components/AppProvider";
 import { deleteEmployee } from "../services/EmployeeService";
-import { getEmployee } from "../services/EmployeeService";
 
 
 function EmployeeInfo(props) {
@@ -56,7 +52,8 @@ function EmployeeInfo(props) {
 }
 
 const ManageAccount = () => {
-    const { role } = React.useContext(AppContext);
+    // const { role } = React.useContext(AppContext);
+    const role = sessionStorage.getItem('role');
     const [Employee, setEmployee] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -78,10 +75,12 @@ const ManageAccount = () => {
                 setLoading(false);
             });
         } else if (role === "ROLE_ADMIN") {
+               console.log("here2")
             listEmployees().then((response) => {
                 const allEmployees = response.data?.filter(employee => employee?.roles?.some(role => role.name === "ROLE_MANAGER"))
                 setEmployee(allEmployees);
                 setLoading(false);
+                console.log("here")
             })
         }
     }

@@ -1,29 +1,19 @@
-import axios from "axios";
-import { getToken } from "./AuthService";
+import API from "./Api";
 
-axios.interceptors.request.use(function (config) {
+const REST_API_BASE_URL = '/employees';
 
-    config.headers['Authorization'] = getToken();
+export const getEmployeeByAuth = (username, password) => API.get(REST_API_BASE_URL + '/' + username, password)
 
-    return config;
-}, function (error){
-    return Promise.reject(error);
-});
+export const listEmployees = () => API.get(REST_API_BASE_URL);
 
-const REST_API_BASE_URL = 'http://localhost:8080/api/employees';
+export const createEmployee = (employee) => API.post(REST_API_BASE_URL, employee);
 
-export const getEmployeeByAuth = (username, password) => axios.get(REST_API_BASE_URL + '/' + username, password)
+export const getRoles = ()=> API.get(REST_API_BASE_URL + "/roles");
 
-export const listEmployees = () => axios.get(REST_API_BASE_URL);
+export const getEmployee = (employeeEmail) => API.get(REST_API_BASE_URL + '/' + employeeEmail);
 
-export const createEmployee = (employee) => axios.post(REST_API_BASE_URL, employee);
+export const updateEmployee = (employeeId, employee) => API.put(REST_API_BASE_URL + '/' + employeeId, employee);
 
-export const getRoles = ()=> axios.get(REST_API_BASE_URL + "/roles");
-
-export const getEmployee = (employeeEmail) => axios.get(REST_API_BASE_URL + '/' + employeeEmail);
-
-export const updateEmployee = (employeeId, employee) => axios.put(REST_API_BASE_URL + '/' + employeeId, employee);
-
-export const deleteEmployee =(employeeId) => axios.delete(REST_API_BASE_URL + '/' + employeeId);
+export const deleteEmployee =(employeeId) => API.delete(REST_API_BASE_URL + '/' + employeeId);
 
 

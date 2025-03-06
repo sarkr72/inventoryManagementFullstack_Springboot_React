@@ -1,22 +1,13 @@
-import axios from "axios";
-import { getToken } from "./AuthService";
+import API from './Api'
 
-const REST_API_BASE_URL = 'http://localhost:8080/api/graph';
+const REST_API_BASE_URL = '/graph';
 
-axios.interceptors.request.use(function (config) {
 
-    config.headers['Authorization'] = getToken();
+export const listGraphs = () => API.get(REST_API_BASE_URL);
 
-    return config;
-}, function (error){
-    return Promise.reject(error);
-});
+export const listGraphsByCompany = (company) => API.get(REST_API_BASE_URL + "/" + company);
 
-export const listGraphs = () => axios.get(REST_API_BASE_URL);
+export const createGraph = (graph) => API.post(REST_API_BASE_URL, graph);
 
-export const listGraphsByCompany = (company) => axios.get(REST_API_BASE_URL + "/" + company);
-
-export const createGraph = (graph) => axios.post(REST_API_BASE_URL, graph);
-
-export const updateGraph = (id, graph) => axios.put(REST_API_BASE_URL + '/' + id, graph);
+export const updateGraph = (id, graph) => API.put(REST_API_BASE_URL + '/' + id, graph);
 

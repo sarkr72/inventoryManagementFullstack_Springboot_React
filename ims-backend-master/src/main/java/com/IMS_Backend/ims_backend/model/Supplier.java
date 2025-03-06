@@ -40,7 +40,7 @@ public class Supplier {
 	private String contact;
 
 	
-	@ManyToMany(mappedBy = "suppliers", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "suppliers")
 	@JsonIgnoreProperties({"suppliers", "address", "contact", "employees", "warehouses", "productLocations"})
 	private List<Company> companies = new ArrayList<>();
 	

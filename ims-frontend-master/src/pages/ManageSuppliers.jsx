@@ -11,7 +11,7 @@ const ManageSuppliers = () => {
   const navigate = useNavigate();
   const [suppliers, setSuppliers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const role = localStorage.getItem('role');
+  const role = sessionStorage.getItem('role');
 
   useEffect(() => {
     getSuppliers();

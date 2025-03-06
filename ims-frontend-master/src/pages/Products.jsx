@@ -16,7 +16,7 @@ const Products = () => {
   const [editingRow, setEditingRow] = useState(null);
   const [editableData, setEditableData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const role = localStorage.getItem('role');
+  const role = sessionStorage.getItem('role');
 
   const [data, setData] = useState(
     {

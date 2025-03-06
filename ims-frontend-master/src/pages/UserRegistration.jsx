@@ -12,8 +12,8 @@ const UserRegistration = () => {
     email: "",
     password: "",
     phone: "",
-    role: (isUserLoggedIn && (localStorage.getItem("role") === "ROLE_ADMIN" ? "ROLE_MANAGER" : localStorage.getItem("role") === "ROLE_MANAGER" ? "ROLE_EMPLOYEE" : "")),
-    company: { id: (isUserLoggedIn && localStorage.getItem("role") === "ROLE_ADMIN" ? "" : parseInt(localStorage.getItem("companyId"))) }
+    role: (isUserLoggedIn && (sessionStorage.getItem("role") === "ROLE_ADMIN" ? "ROLE_MANAGER" : sessionStorage.getItem("role") === "ROLE_MANAGER" ? "ROLE_EMPLOYEE" : "")),
+    company: { id: (isUserLoggedIn && sessionStorage.getItem("role") === "ROLE_ADMIN" ? "" : parseInt(localStorage.getItem("companyId"))) }
   });
   const [error, setError] = useState(null);
   const [companies, setCompanies] = useState([]);
@@ -36,10 +36,12 @@ const UserRegistration = () => {
     e.preventDefault();
     if (!error) {
       try {
+        console.log(data);
         await registerAPICall(data);
         navigate("/admin/manageAccounts");
       } catch (error) {
         toast.error(error.response.data);
+        alert(error.response.data)
       }
     }
   };
@@ -78,7 +80,7 @@ const UserRegistration = () => {
           </div>
           <div className="col-md-6 col-lg-5">
             <form onSubmit={handleSubmit} className="input-group">
-              {localStorage.getItem("role") === "ROLE_ADMIN" && (
+              {sessionStorage.getItem("role") === "ROLE_ADMIN" && (
                 <div className="input-group mb-3">
                   <select style={{ height: "35px ", width: "100%" }} onChange={handleChange} name="company" required>
                     <option value="">Select Company</option>

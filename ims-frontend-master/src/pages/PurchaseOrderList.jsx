@@ -15,7 +15,7 @@ const PurchaseOrderList = () => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openViewModal, setOpenViewModal] = useState(false);
-  const role = localStorage.getItem("role");
+  const role = sessionStorage.getItem("role");
   const [searchTerm, setSearchTerm] = useState("");
 
   const [viewModalData, setViewModalData] = useState({

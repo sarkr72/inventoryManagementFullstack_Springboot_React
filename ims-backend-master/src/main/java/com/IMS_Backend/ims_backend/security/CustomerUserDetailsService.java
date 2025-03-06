@@ -20,8 +20,15 @@ import com.IMS_Backend.ims_backend.repository.EmployeeRepository;
 @Service
 public class CustomerUserDetailsService implements UserDetailsService {
 
-	@Autowired
+
 	private EmployeeRepository userRepository;
+	
+	@Autowired
+	public CustomerUserDetailsService(EmployeeRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+
+
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useState } from "react";
 
 const Quantity = (props) => {
   const handleQtyChange = (e) => {

@@ -1,25 +1,15 @@
-import axios from "axios";
-import { getToken } from "./AuthService";
+import API from "./Api";
 
-axios.interceptors.request.use(function (config) {
+const REST_API_BASE_URL = "/supplier";
 
-    config.headers['Authorization'] = getToken();
+export const listSupplier = () => API.get(REST_API_BASE_URL);
 
-    return config;
-}, function (error){
-    return Promise.reject(error);
-});
+export const createSupplier = (supplier) => API.post(REST_API_BASE_URL, supplier);
 
-const REST_API_BASE_URL = "http://localhost:8080/api/supplier";
+export const getSupplier = (supplierId) => API.get(REST_API_BASE_URL + "/" + supplierId);
 
-export const listSupplier = () => axios.get(REST_API_BASE_URL);
+export const updateSupplierById = (supplierId, supplier) => API.put(REST_API_BASE_URL + "/" + supplierId, supplier);
 
-export const createSupplier = (supplier) => axios.post(REST_API_BASE_URL, supplier);
+export const getSupplierByName = (name) => API.get(REST_API_BASE_URL + "/name/" + name);
 
-export const getSupplier = (supplierId) => axios.get(REST_API_BASE_URL + "/" + supplierId);
-
-export const updateSupplierById = (supplierId, supplier) => axios.put(REST_API_BASE_URL + "/" + supplierId, supplier);
-
-export const getSupplierByName = (name) => axios.get(REST_API_BASE_URL + "/name/" + name);
-
-export const deleteSupplier = (supplierId) => axios.delete(REST_API_BASE_URL + "/" + supplierId);
+export const deleteSupplier = (supplierId) => API.delete(REST_API_BASE_URL + "/" + supplierId);

@@ -10,7 +10,7 @@ const ManageWarehouses = () => {
   const navigate = useNavigate();
   const [warehouses, setWarehouses] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const role = localStorage.getItem('role');
+  const role = sessionStorage.getItem('role');
 
   useEffect(() => {
     getWarehouses();

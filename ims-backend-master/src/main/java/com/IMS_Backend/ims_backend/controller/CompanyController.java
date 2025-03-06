@@ -61,7 +61,7 @@ public class CompanyController {
 		return ResponseEntity.ok(companys);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'MANAGER', 'EMPLOYEE')")
 	@PutMapping("/{id}")
 	public ResponseEntity<Company> updatecompany(@PathVariable("id") Long id, @RequestBody Company company){
 		Company updatedcompany = companyService.updateCompany(id, company);

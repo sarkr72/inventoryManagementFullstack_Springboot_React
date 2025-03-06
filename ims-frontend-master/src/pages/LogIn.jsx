@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
-  getEmployee,
-  getRoles,
+  listEmployees,
 } from "../services/EmployeeService";
 import {
   loginAPICall,
   saveLoggedInUser,
-  storeToken,
+  setTokens
 } from "../services/AuthService";
 import { AppContext } from "../components/AppProvider";
 
@@ -22,23 +21,27 @@ const LogIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = "Basic " + window.btoa(email + ":" + password);
-      storeToken(token);
-      saveLoggedInUser(email);
-      signIn(true);
+      // const token = "Basic " + window.btoa(email + ":" + password);
 
-      const employeeResponse = await getEmployee(email);
-      const data = employeeResponse.data;
+       const response = await loginAPICall(email, password);
 
-      localStorage.setItem("user", JSON.stringify({data}));
-      localStorage.setItem("companyName", data.company.name);
-      localStorage.setItem("companyId", data.companyId);
-      localStorage.setItem("company", JSON.stringify(data.company));
-      // Uncomment if roles are needed
-      // const rolesResponse = await getRoles();
-      // localStorage.setItem("role", rolesResponse.data[0]);
+       if (response.accessToken && response.refreshToken) {
+        console.log("here");
+        setTokens(response.accessToken, response.refreshToken);
+        saveLoggedInUser(email, response.role);
+        signIn(true);
 
-      navigate("/homepage");
+        const employeeResponse = await listEmployees();
+        const data = employeeResponse.data;
+        if (data) {
+          localStorage.setItem("user", JSON.stringify({ data }));
+          localStorage.setItem("companyName", data[0].company.name);
+          localStorage.setItem("companyId", data[0].companyId);
+          localStorage.setItem("company", JSON.stringify(data.company));
+
+          navigate("/homepage");
+        }
+      }
     } catch (error) {
       if (error.response) {
         if (error.response.status === 401) {
@@ -62,25 +65,33 @@ const LogIn = () => {
   };
 
   return (
-    <div style={{
+    <div
+      style={{
         backgroundImage: `url("/assets/images/inventory-management.jpg")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-      }} >
+      }}
+    >
       <div
         style={{ minHeight: "90vh" }}
-        className="container mb-0 mt-md-20 d-flex flex-column justify-content-center align-items-center">
+        className="container mb-0 mt-md-20 d-flex flex-column justify-content-center align-items-center"
+      >
         <ToastContainer />
-        <div style={{ width: "600px" }} className="row border rounded-3 h-auto p-3 bg-white shadow">
+        <div
+          style={{ width: "600px" }}
+          className="row border rounded-3 h-auto p-3 bg-white shadow"
+        >
           <h3 className="card-title text-center mb-4">Log In</h3>
           <div className="col-md-4 col-lg-3 p-0 rounded-4 text-center m-auto">
             <div className="mb-3">
-              <img src="/assets/images/logo2.png" alt="Logo" style={{ width: "120px", height: "125px"}}/>
+              <img
+                src="/assets/images/logo2.png"
+                alt="Logo"
+                style={{ width: "120px", height: "125px" }}
+              />
             </div>
             <h5>Inventory Management System</h5>
-            <p style={{ marginTop: "-10px" }}>
-              Please sign in to get started.
-            </p>
+            <p style={{ marginTop: "-10px" }}>Please sign in to get started.</p>
           </div>
 
           <div className="col-md-6 col-lg-5">
