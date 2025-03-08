@@ -3,30 +3,29 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./ims-backend-master # Path to your Spring Boot backend project
+      context: ./ims-backend-master  # Path to Spring Boot project
       dockerfile: Dockerfile
+    image: my-backend:v1.0.0
     container_name: ims-backend
     ports:
       - "8080:8080"
     depends_on:
       - mysql
+    env_file:
+      - .env   # Make sure this file is in the same directory as docker-compose.yml
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/imsDB
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      #SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQLDialect
-      JWT_SECRET: ec1aa3041f3e561219a3229e82d1da1482ab5b109c1c16e4b84eb8207843cfaff1f3465962650945c45bab2c9ecdd0ca06e4d6567556b2c89048fa9eea42793f
-      JWT_EXPIRATION_MS: 600000
-      JWT_REFRESH_EXPIRATION_MS: 900000
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}   # Make sure JWT_SECRET is being passed from .env
 
   mysql:
-    image: mysql:latest
+    image: mysql:8.0.33
     container_name: mysql-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: imsDB
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3307:3306"
     volumes:
@@ -34,11 +33,12 @@ services:
 
   frontend:
     build:
-      context: ./ims-frontend-master  # Path to your React frontend project
+      context: ./ims-frontend-master  # Path to React frontend project
       dockerfile: Dockerfile
+    image: my-frontend:v1.0.0
     container_name: ims-frontend
     ports:
-      - "5173:5173"  # Ensure React runs on port 5173
+      - "5173:5173"
     depends_on:
       - backend
 

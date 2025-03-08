@@ -1,0 +1,23 @@
+# Ignore .env file (contains sensitive information)
+.env
+
+# Node.js (Frontend) Ignored Files
+ims-frontend-master/node_modules/
+ims-frontend-master/dist/
+ims-frontend-master/.vite/
+ims-frontend-master/.cache/
+
+# Java & Spring Boot (Backend) Ignored Files
+ims-backend-master/target/
+ims-backend-master/.idea/
+ims-backend-master/.vscode/
+ims-backend-master/*.log
+ims-backend-master/*.iml
+
+# Docker Ignored Files
+*.dockerignore
+fullStack/.env
+
+# Other OS & Editor Files
+.DS_Store
+Thumbs.db
