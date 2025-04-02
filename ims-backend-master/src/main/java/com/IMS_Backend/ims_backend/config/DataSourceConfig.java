@@ -21,16 +21,16 @@ import jakarta.persistence.EntityManagerFactory;
 @EnableTransactionManagement
 public class DataSourceConfig {
 
-    @Value("${datasource.write.url}")
+    @Value("${datasource.write.url:jdbc:mysql://mysql-db:3307/imsDB}")
     private String writeUrl;
 
-    @Value("${datasource.read.url}")
+    @Value("${datasource.read.url:jdbc:mysql://mysql-db:3307/imsDB}")
     private String readUrl;
 
-    @Value("${datasource.username}")
+    @Value("${datasource.username:root}")
     private String username;
 
-    @Value("${datasource.password}")
+    @Value("${datasource.password:root}")
     private String password;
 
     @Bean

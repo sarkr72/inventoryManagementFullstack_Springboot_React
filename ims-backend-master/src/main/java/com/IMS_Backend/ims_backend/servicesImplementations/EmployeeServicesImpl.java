@@ -63,9 +63,16 @@ public class EmployeeServicesImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> getAllEmployees() {
-
-		return employeeRepository.findAll();
+	    System.out.println("inside impl: ");
+	    try {
+	        return employeeRepository.findAll();
+	    } catch (Exception e) {
+	        System.err.println("Error occurred while fetching employees: " + e.getMessage());
+	        e.printStackTrace();
+	        return new ArrayList<>(); 
+	    }
 	}
+
 
 	@Override
 	public Employee updateEmployee(Long employeeId, Employee employee) {
