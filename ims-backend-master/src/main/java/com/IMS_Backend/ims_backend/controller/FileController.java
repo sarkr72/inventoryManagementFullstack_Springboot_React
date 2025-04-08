@@ -26,14 +26,12 @@ public class FileController {
         this.s3Service = s3Service;
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    @PostMapping("/upload/{companyId}")
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @PathVariable String companyId) {
         File tempFile = null;
         try {
-            System.out.println("Received file: " + file.getOriginalFilename());
-
             tempFile = convertMultipartFileToFile(file);
-            s3Service.uploadFile(tempFile);
+            s3Service.uploadFile(tempFile, companyId);
 
             return ResponseEntity.ok("File uploaded successfully!");
         } catch (IOException e) {
@@ -55,10 +53,10 @@ public class FileController {
         return tempFile;
     }
 
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<byte[]> downloadFile(@PathVariable String fileName) throws IOException {
+    @GetMapping("/download/{companyId}/{year}/{month}/{fileName}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable String companyId, @PathVariable String fileName) throws IOException {
         try {
-            S3Object s3Object = s3Service.downloadFile(fileName);
+            S3Object s3Object = s3Service.downloadFile(companyId, fileName);
             S3ObjectInputStream inputStream = s3Object.getObjectContent();
             byte[] content = IOUtils.toByteArray(inputStream);
 
@@ -72,10 +70,10 @@ public class FileController {
         }
     }
 
-    @DeleteMapping("/delete/{fileName}")
-    public ResponseEntity<String> deleteFile(@PathVariable String fileName) {
+    @DeleteMapping("/delete/{companyId}/{fileName}")
+    public ResponseEntity<String> deleteFile(@PathVariable String companyId, @PathVariable String fileName) {
         try {
-            s3Service.deleteFile(fileName);
+            s3Service.deleteFile(companyId, fileName);
             return ResponseEntity.ok("File deleted successfully!");
         } catch (Exception e) {
             e.printStackTrace();
