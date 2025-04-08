@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.time.LocalDate;
 
 @Service
 public class S3Service {
@@ -25,9 +26,6 @@ public class S3Service {
     ) {
         this.bucketName = bucketName;
 
-        System.out.println("AWS Access Key: " + accessKeyId);
-        System.out.println("AWS Secret Key: " + secretKey);
-
         BasicAWSCredentials awsCredentials = new BasicAWSCredentials(accessKeyId, secretKey);
         this.amazonS3 = AmazonS3ClientBuilder.standard()
                 .withRegion(region)
@@ -35,15 +33,18 @@ public class S3Service {
                 .build();
     }
 
-    public void uploadFile(File file) {
-        amazonS3.putObject(new PutObjectRequest(bucketName, file.getName(), file));
+    public void uploadFile(File file, String companyId) {
+        String filePath = String.format("%s/%s", companyId, file.getName());
+        amazonS3.putObject(new PutObjectRequest(bucketName, filePath, file));
     }
 
-    public S3Object downloadFile(String fileName) {
-        return amazonS3.getObject(bucketName, fileName);
+    public S3Object downloadFile(String companyId,  String fileName) {
+    	String filePath = String.format("%s/%s", companyId, fileName);
+        return amazonS3.getObject(bucketName, filePath);
     }
 
-    public void deleteFile(String fileName) {
-        amazonS3.deleteObject(bucketName, fileName);
+    public void deleteFile(String companyId, String fileName) {
+        String filePath = String.format("%s/%s", companyId, fileName);
+        amazonS3.deleteObject(bucketName, filePath);
     }
 }
