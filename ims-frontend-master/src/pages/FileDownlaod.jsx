@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const FileDownload =()=> {
+const FileDownload = () => {
   const [fileName, setFileName] = useState("");
+  const [companyId, setCompanyId] = useState(localStorage.getItem("companyId")); 
 
   const handleDownload = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/files/download/${fileName}`, {
-        responseType: "arraybuffer",
-      });
+      const response = await axios.get(
+        `http://localhost:8080/api/files/download/${companyId}/${fileName}`,
+        {
+          responseType: "arraybuffer",
+        }
+      );
 
       const file = new Blob([response.data], { type: "application/octet-stream" });
 
@@ -33,6 +37,6 @@ const FileDownload =()=> {
       <button onClick={handleDownload}>Download File</button>
     </div>
   );
-}
+};
 
 export default FileDownload;
