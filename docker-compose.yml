@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./ims-backend-master  # Path to Spring Boot project
+      dockerfile: Dockerfile
+    image: my-backend:v1.0.0
+    container_name: ims-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    env_file:
+      - .env   # Make sure this file is in the same directory as docker-compose.yml
+    environment:
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}   # Make sure JWT_SECRET is being passed from .env
+
+  mysql:
+    image: mysql:8.0.33
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  frontend:
+    build:
+      context: ./ims-frontend-master  # Path to React frontend project
+      dockerfile: Dockerfile
+    image: my-frontend:v1.0.0
+    container_name: ims-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:

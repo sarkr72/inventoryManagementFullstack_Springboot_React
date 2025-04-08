@@ -1,0 +1,42 @@
+{
+  "name": "ims-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "start": "next start",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@react-pdf/renderer": "^4.2.0",
+    "axios": "^1.8.0",
+    "bootstrap": "^5.3.3",
+    "formik": "^2.4.6",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.10.5",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^18.2.0",
+    "react-router-bootstrap": "^0.26.3",
+    "react-router-dom": "^6.29.0",
+    "react-toastify": "^9.0.0"
+
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@types/react": "^18.3.15",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint": "^9.14.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.2",
+    "eslint-plugin-react-refresh": "^0.4.15",
+    "globals": "^15.11.1",
+    "vite": "^6.2.0"
+
+  }
+}

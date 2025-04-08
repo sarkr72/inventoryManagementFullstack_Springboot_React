@@ -1,0 +1,58 @@
+# Ignore .env file (contains sensitive information)
+.env
+
+# Node.js (Frontend) Ignored Files
+ims-frontend-master/node_modules/
+ims-frontend-master/dist/
+ims-frontend-master/.vite/
+ims-frontend-master/.cache/
+
+# Java & Spring Boot (Backend) Ignored Files
+ims-backend-master/target/
+ims-backend-master/.idea/
+ims-backend-master/.vscode/
+ims-backend-master/*.log
+ims-backend-master/*.iml
+
+# Docker Ignored Files
+*.dockerignore
+fullStack/.env
+
+# Other OS & Editor Files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Miscellaneous files
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json   # Keep vscode workspace settings
+.idea/
+.DS_Store
+
+# Windows-specific files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Other generated files
+*.env    # Ignore environment files
