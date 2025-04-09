@@ -8,7 +8,6 @@ import {
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom/dist";
 import { isUserLoggedIn, logout } from "../services/AuthService";
-import { AppContext } from "./AppProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons'; // Import the icon you want to use
 
@@ -19,7 +18,8 @@ const Header = () => {
   // const { role } = React.useContext(AppContext);
   const role = sessionStorage.getItem("role");
   const name = JSON.parse(localStorage.getItem("user"))?.data[0]?.firstName?.toUpperCase();
- 
+  const logoUrl = JSON.parse(localStorage.getItem("company"))?.logoUrl();
+
   const logoutHandler = () => {
     logout();
     // navigate("/login");
@@ -41,8 +41,9 @@ const Header = () => {
             style={{ cursor: "pointer" }}
           >
             <img
-              src="/assets/images/logo2.png"
-              alt=" "
+              // src="/assets/images/logo2.png"
+              src={logoUrl}
+              alt="Company Logo"
               className="rounded-2"
               style={{ width: "30px", height: "30px" }}
             />{" "}
