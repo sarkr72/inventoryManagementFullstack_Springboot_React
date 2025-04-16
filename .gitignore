@@ -1,0 +1,59 @@
+# === Frontend Environment Files ===
+ims-frontend-master/.env
+ims-frontend-master/.env.local
+ims-frontend-master/.env.production
+
+# === Frontend Node.js Files ===
+ims-frontend-master/node_modules/
+ims-frontend-master/dist/
+ims-frontend-master/build/
+ims-frontend-master/.vite/
+ims-frontend-master/.cache/
+ims-frontend-master/package-lock.json
+
+# === Logs ===
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# === Backend (Spring Boot / Java) ===
+ims-backend-master/target/
+ims-backend-master/*.log
+ims-backend-master/*.iml
+ims-backend-master/.classpath
+ims-backend-master/.project
+ims-backend-master/.settings/
+ims-backend-master/.vscode/
+ims-backend-master/.idea/
+
+# Ignore all properties and YAML files (env config)
+ims-backend-master/src/main/resources/*.properties
+ims-backend-master/src/main/resources/*.yml
+ims-backend-master/src/main/resources/*.yaml
+
+# OR ignore all properties/yml anywhere inside backend
+ims-backend-master/**/*.properties
+ims-backend-master/**/*.yml
+ims-backend-master/**/*.yaml
+
+# === Editor / IDE Config ===
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# === System / OS Files ===
+.DS_Store
+Thumbs.db
+
+# === Docker ===
+*.dockerignore
+docker-compose.override.yml
+fullstack/.env
