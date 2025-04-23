@@ -11,12 +11,12 @@ import {
   saveLoggedInUser,
   setTokens
 } from "../services/AuthService";
-import { AppContext } from "../components/AppProvider";
+// import { AppContext } from "../components/AppProvider";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn } = useContext(AppContext);
+  // const { signIn } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -29,10 +29,10 @@ const LogIn = () => {
        if (response.accessToken && response.refreshToken) {
         setTokens(response.accessToken, response.refreshToken);
         saveLoggedInUser(email, response.role);
-        signIn(true);
+        // signIn(true);
 
         const employeeResponse = await getEmployee(email);
-        const data = employeeResponse.data;
+        const data = employeeResponse?.data;
         if (data) {
           // console.log("data", data);
           localStorage.setItem("user", JSON.stringify({ data }));

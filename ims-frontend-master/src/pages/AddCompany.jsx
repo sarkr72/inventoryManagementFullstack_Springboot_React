@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createCompany, updateCompanyWithId } from "../services/CompanyService";
 import AddForm from "../components/AddForm";
 import axios from "axios";
+import ItemDetail from "../components/ItemDetail";
 
 const AddCompany = () => {
   const [data, setData] = useState({
@@ -18,7 +19,7 @@ const AddCompany = () => {
   const message = "Company";
   const [file, setFile] = useState(null);
   const [companyId, setCompanyId] = useState(localStorage.getItem("companyId"));
-
+  const itemId = 1;
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -79,7 +80,7 @@ console.log("companyId", companyId);
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/files/upload/${companyId}`, 
+        import.meta.env.VITE_API_URL+`/files/upload/${companyId}`, 
         formData,
         {
           headers: {
@@ -110,6 +111,7 @@ console.log("companyId", companyId);
       <h3>Upload Company Logo:</h3>
       <input type="file" onChange={handleFileChange} />
     </div>
+    <ItemDetail itemId={itemId}/>
     </div>
   );
 };

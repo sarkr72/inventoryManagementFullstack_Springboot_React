@@ -7,8 +7,6 @@ import "./ViewProfile.css";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
 import {
-  getEmployee,
-  getEmployeeByAuth,
   updateEmployee,
 } from "../services/EmployeeService";
 import { ToastContainer, toast } from "react-toastify";

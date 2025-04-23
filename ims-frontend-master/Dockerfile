@@ -1,20 +1,14 @@
-# Use Node.js as the base image for building the app
-FROM node:22-alpine3.21
-
-# Set working directory inside the container
+# Stage 1: Build the frontend
+FROM node:22-alpine3.21 AS builder
 WORKDIR /app
-
-# Copy package.json and package-lock.json (if available)
 COPY package.json package-lock.json ./
-
-# Install dependencies
 RUN npm install
-
-# Copy the rest of the application
 COPY . .
+RUN npm run build
 
-# Expose the port Vite will run on (5173)
-EXPOSE 5173
-
-# Start the Vite development server
-CMD ["npm", "run", "dev"]
+# Stage 2: Serve with Nginx and custom config
+FROM nginx:stable-alpine
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

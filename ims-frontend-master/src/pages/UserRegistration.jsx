@@ -43,13 +43,14 @@ const UserRegistration = () => {
         await registerAPICall(data).then(async (response) => {
           console.log("register done", response.data);
           await handleUpload(response.data.company.id, response.data.id);
-          navigate("/admin/manageAccounts");
+          // navigate("/admin/manageAccounts");
         });
       } catch (error) {
         // Check if the error response has a specific message and display it
         const errorMessage = error.response?.data?.message || error.response?.data || "Something went wrong!";
         toast.error(errorMessage); // Show the error in a toast
         alert(errorMessage); // Optional: show the error in an alert
+      console.log(error);
       }
     }
   };
@@ -88,7 +89,7 @@ const UserRegistration = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/files/upload/${companyId}?employeeId=${employeeId}`, 
+        import.meta.env.VITE_API_URL + `/files/upload/${companyId}?employeeId=${employeeId}`, 
         formData,
         {
           headers: {

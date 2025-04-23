@@ -26,12 +26,14 @@ import Statistics from "./pages/Statistics";
 import InactivityTracker from "./services/InactivityHandle";
 import FileUpload from "./pages/FileUpload";
 import FileDownload from "./pages/FileDownlaod";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const AuthenticatedRoute = ({ children, allowedRoles }) => {
     const isAuth = isUserLoggedIn();
     const roles = sessionStorage.getItem("role");
-    console.log(roles);
+    // console.log(roles);
     const hasRequiredRole = allowedRoles ? allowedRoles.includes(roles) : true;
     if (isAuth && hasRequiredRole) {
       return children;
@@ -44,6 +46,7 @@ function App() {
       <BrowserRouter>
       <InactivityTracker />
         <Header style={{ margin: 0, padding: 0 }} />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<WelcomePage />}></Route>
 

@@ -4,12 +4,15 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-toastify/dist/ReactToastify.css';
-import AppProvider from './components/AppProvider.jsx';
+// import AppProvider from './components/AppProvider.jsx';
+import ApolloWrapper from './services/apolloClient.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AppProvider>
+    {/* <AppProvider> */}
+    <ApolloWrapper>
     <App />
-    </AppProvider>
+    </ApolloWrapper>
+    {/* </AppProvider> */}
   </StrictMode>,
 )

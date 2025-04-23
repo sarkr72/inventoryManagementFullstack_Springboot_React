@@ -72,6 +72,7 @@ public class SpringSecurityConfig {
 			auth.requestMatchers("/ws/**").permitAll();
 			auth.requestMatchers("/api/auth/**").permitAll();
 			auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+			auth.requestMatchers("/graphql").permitAll();
 			auth.anyRequest().authenticated();
 		}).sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

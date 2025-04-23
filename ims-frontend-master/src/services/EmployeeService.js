@@ -2,8 +2,6 @@ import API from "./Api";
 
 const REST_API_BASE_URL = '/employees';
 
-export const getEmployeeByAuth = (username, password) => API.get(REST_API_BASE_URL + '/' + username, password)
-
 export const listEmployees = () => API.get(REST_API_BASE_URL);
 
 export const createEmployee = (employee) => API.post(REST_API_BASE_URL, employee);
